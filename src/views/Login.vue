@@ -67,7 +67,7 @@ export default {
 <style lang="less" secoped>
   .login {
     height: 100%;
-    background-color: pink;
+    background-color: orange;
     overflow: hidden;
     .el-form {
       background-color: #fff;
