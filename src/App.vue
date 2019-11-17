@@ -10,6 +10,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" secoped>
+  * {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  html,body,#app {
+    height: 100%;
+  }
 </style>

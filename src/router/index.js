@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
+Vue.use(ElementUI)
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -18,6 +21,16 @@ const router = new VueRouter({
       component: () => import('../views/Home.vue')
     }
   ]
+})
+
+// 路由守卫
+router.beforeEach(function (to, form, next) {
+  const token = localStorage.getItem('token')
+  if (token || to.path === '/login') {
+    next()
+  } else {
+    next('/login')
+  }
 })
 
 export default router
