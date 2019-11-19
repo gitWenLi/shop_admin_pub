@@ -13,7 +13,8 @@
           <el-row class="tac">
             <el-col>
               <el-menu
-                default-active="1"
+                router
+                :default-active="getPath"
                 class="el-menu-vertical-demo"
                 unique-opened>
                 <el-submenu :index="items.authName" v-for="items in menusData" :key="items.authName">
@@ -33,7 +34,9 @@
           </el-row>
         </el-aside>
         <el-container>
-          <el-main>Main</el-main>
+          <el-main>
+            <router-view></router-view>
+          </el-main>
         </el-container>
       </el-container>
 </el-container>
@@ -49,6 +52,7 @@ export default {
   },
   async created () {
     const { data, meta } = await this.$axios.get('menus')
+    // console.log(data)
     if (meta.status === 200) {
       this.menusData = data
     }
@@ -67,6 +71,11 @@ export default {
       } catch {
         this.$message.info('已取消')
       }
+    }
+  },
+  computed: {
+    getPath () {
+      return this.$route.path.slice(1)
     }
   }
 }

@@ -18,7 +18,21 @@ const router = new VueRouter({
     },
     {
       path: '/home',
-      component: () => import('../views/Home.vue')
+      component: () => import('../views/Home.vue'),
+      children: [
+        {
+          path: '/users',
+          component: () => import('../views/User.vue')
+        },
+        {
+          path: '/roles',
+          component: () => import('../views/Roles.vue')
+        },
+        {
+          path: '/rights',
+          component: () => import('../views/Rights.vue')
+        }
+      ]
     }
   ]
 })
@@ -32,5 +46,9 @@ router.beforeEach(function (to, form, next) {
     next('/login')
   }
 })
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default router
