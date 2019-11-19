@@ -41,39 +41,32 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data () {
     return {
       menusData: []
     }
   },
-  created () {
-    axios({
-      method: 'get',
-      url: 'http://localhost:8888/api/private/v1/menus',
-      headers: { Authorization: localStorage.getItem('token') }
-    }).then(res => {
-      console.log(res.data)
-      const { data, meta } = res.data
-      if (meta.status === 200) {
-        this.menusData = data
-      }
-    })
+  async created () {
+    const { data, meta } = await this.$axios.get('menus')
+    if (meta.status === 200) {
+      this.menusData = data
+    }
   },
   methods: {
-    loginOut () {
-      this.$confirm('确定退出当前用户？', '温馨提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
+    async loginOut () {
+      try {
+        await this.$confirm('确定退出当前用户？', '温馨提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
         localStorage.removeItem('token')
         this.$router.push('/login')
         this.$message.success('退出成功')
-      }).catch(() => {
+      } catch {
         this.$message.info('已取消')
-      })
+      }
     }
   }
 }
