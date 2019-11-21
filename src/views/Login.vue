@@ -46,6 +46,7 @@ export default {
         const { meta, data } = await this.$axios.post('login', this.form)
         console.log(data)
         if (meta.status === 200) {
+          console.log(data)
           localStorage.setItem('token', data.token)
           this.$router.push('/home')
           this.$message.success('登陆成功')
@@ -61,7 +62,7 @@ export default {
 <style lang="less" secoped>
   .login {
     height: 100%;
-    background-color: orange;
+    background-color: lightblue;
     overflow: hidden;
     .el-form {
       background-color: #fff;

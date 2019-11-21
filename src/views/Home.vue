@@ -52,7 +52,7 @@ export default {
   },
   async created () {
     const { data, meta } = await this.$axios.get('menus')
-    // console.log(data)
+    // console.log(data, meta)
     if (meta.status === 200) {
       this.menusData = data
     }
@@ -122,7 +122,7 @@ export default {
       background-color: #fff;
     }
     .el-main {
-      background-color: orange;
+      background-color: lightblue;
     }
   }
 </style>
